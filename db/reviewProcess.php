@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
     if (mysqli_num_rows($sql) > 0)
     {
       //update if exist
-      $sqlUpdate = "UPDATE reviews_table SET rate = '$rate';";
+      $sqlUpdate = "UPDATE reviews_table SET rate = '$rate' WHERE movie = '$movie';";
       mysqli_query($dbc, $sqlUpdate) or die("Error Updating user to reviews_table");
     }
     else {
