@@ -69,10 +69,10 @@ if(!isset($_SESSION))
   </form>
 
   <br>
-  <form name = "form" action = "" method = "GET">
-    <label> Click button to retrieve information: </label>
+  <form name = "reviewForm" action = "" method = "GET">
+    <label> Click the button to retrieve your review information: </label>
     <input type = "submit" value = "retrieve" name = "retrieve">
-    <h4> Recommended Movie:</h4>
+    <h4> Movie Reviews:</h4>
   </form>
 
   <script>
@@ -89,6 +89,41 @@ if(!isset($_SESSION))
 
   <?php
   if(isset($_GET['retrieve'])){
+    $userID = $_SESSION['userID'];
+    $sql = "SELECT * FROM reviews_table WHERE userID = $userID;";
+    $result = $dbc->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        echo $row["movie"]." ".$row["rate"]."<br>";
+      }
+    } else {
+      echo "0 results";
+    }
+  }
+  ?>
+  <br>
+  <form name = "recommendForm" action = "" method = "GET">
+    <label> Click the button to get your recommended movie: </label>
+    <input type = "submit" value = "get" name = "getRecommend">
+    <h4> Recommended Movie:</h4>
+  </form>
+
+  <script>
+    function getRecommend() {
+      var get = document.getElementById("getRecommend");
+      if (get.style.display == "none") {
+        get.style.display = "block";
+      }
+      else{
+        get.style.display = "none";
+      }
+    }
+  </script>
+
+  <?php
+  if(isset($_GET['getRecommend'])){
     $userID = $_SESSION['userID'];
     $sql = "SELECT * FROM reviews_table WHERE userID = $userID;";
     $result = $dbc->query($sql);
