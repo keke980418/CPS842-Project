@@ -16,11 +16,11 @@ function recommender(string $user)
 		$rated = ratingScore($user, $tempMovie);
 		$predictedRating[] = array($rated => $tempMovie);
 	}
-	arsort($predictedRating); //sorts this array into decending array of values
+	arsort($predictedRating); //sorts this array into descending array of values
 	echo "We recommend you watch: " . reset($predictedRating) . " next!"; //this gives the top predictedRated movie of the user.
 }
 
-//echo recommender("1");
+//$tempVar3=recommender("1");
 
 /**
  * array $user1 and array $user2 must be same length
@@ -56,7 +56,6 @@ function sim(array $user1, array $user2)
 /**This function takes in a username and an array of movie names
  * and returns an array of rating corresponding to the movies.
  **/
-
 function getRatingArray(string $a, array $b): array
 {
 	require '../db/dbc.php';
@@ -77,7 +76,7 @@ function getRatingArray(string $a, array $b): array
 
 /**This function takes the current user and a movie name and
  * returns a possible rating the user might give that movie based
- * on the similarity of this users and users already in the database.
+ * on the similarity of this user and users already in the database.
  * @currUser -> String
  * @movie -> String
  * return -> float
@@ -130,6 +129,4 @@ function ratingScore(string $currUser, string $movie)
 	}
 }
 
-$tempVar2 = ratingScore("1", "The Godfather");
-echo $tempVar2;
-//$dbc->close();
+$dbc->close();

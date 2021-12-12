@@ -1,5 +1,6 @@
 <?php
 require 'dbc.php';
+/** @var mysqli $dbc */
 
 //If user_table doesn't exist, create table
 $tableCheck = mysqli_query($dbc,'select 1 from `user_table` LIMIT 1');

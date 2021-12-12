@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 require_once('../db/dbc.php');
+/** @var mysqli $dbc */
+
 if(!isset($_SESSION))
 {
     session_start();

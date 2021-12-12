@@ -1,5 +1,7 @@
 <?php
 require 'dbc.php';
+/** @var mysqli $dbc */
+
 if(!isset($_SESSION))
 {
     session_start();
@@ -56,4 +58,3 @@ if(isset($_POST['submit'])){
     header("Location: ../templates/reviews.php");
 }
 $dbc -> close();
-?>

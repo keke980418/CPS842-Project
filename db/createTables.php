@@ -1,5 +1,6 @@
 <?php
 require 'dbc.php';
+/** @var mysqli $dbc */
 
 //If movie_database doesn't exist, create table
 $tableCheck = mysqli_query($dbc,'select 1 from `movie_database` LIMIT 1');
@@ -9,7 +10,8 @@ if($tableCheck == FALSE){
     movieTitle VARCHAR(100),
     rating INT(2)
     )";
-$result = mysqli_query($dbc,$sql) or die("Unable to create movie_database Table $sql");
+
+    $result = mysqli_query($dbc,$sql) or die("Unable to create movie_database Table $sql");
 
     //Insert data into Car table
     $sql = "INSERT INTO movie_database(userID, movieTitle, rating)
@@ -119,4 +121,3 @@ $result = mysqli_query($dbc,$sql) or die("Unable to create movie_database Table 
 }
 echo"Successful Connection";
 $dbc -> close();
-?>
