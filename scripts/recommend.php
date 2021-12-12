@@ -10,11 +10,11 @@ function recommender(string $user)
 {
 	$predictedRating = array();
 
-	$moviesYetToRate = array("SELECT DISTINCT movieTitle FROM movie_database WHERE userID != '$user'");
+	$moviesYetToRate = array("SELECT DISTINCT movieTitle FROM movie_database WHERE userID != '$user'") - array("SELECT DISTINCT movieTitle FROM movie_database WHERE userID = '$user'");
 	for ($z = 0; $z < count($moviesYetToRate); $z++) {
 		$tempMovie = $moviesYetToRate[$z];
 		$rated = ratingScore($user, $tempMovie);
-		$predictedRating[] = array($rated => $tempMovie);
+		$predictedRating[] = array_push($rated => $tempMovie);
 	}
 	arsort($predictedRating); //sorts this array into descending array of values
 	echo "We recommend you watch: " . reset($predictedRating) . " next!"; //this gives the top predictedRated movie of the user.
@@ -56,7 +56,7 @@ function sim(array $user1, array $user2)
 /**This function takes in a username and an array of movie names
  * and returns an array of rating corresponding to the movies.
  **/
-function getRatingArray(string $a, array $b): array
+function getRatingArray(string $a, array $b)
 {
 	require '../db/dbc.php';
 	/** @var mysqli $dbc */
@@ -65,7 +65,7 @@ function getRatingArray(string $a, array $b): array
 		$curr = $b[$w];
 		$sql = mysqli_query($dbc, "SELECT rating FROM movie_database WHERE userID = '$a' && movieTitle = '$curr'");
 		while ($row = mysqli_fetch_array($sql, MYSQLI_ASSOC)) {
-			$rating[] = $row['rating'];
+			array_push($rating, $row['rating']);
 		}
 	} //add to rating array
 	return $rating;
