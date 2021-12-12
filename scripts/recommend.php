@@ -14,7 +14,7 @@ function recommender(string $user)
 	for ($z = 0; $z < count($moviesYetToRate); $z++) {
 		$tempMovie = $moviesYetToRate[$z];
 		$rated = ratingScore($user, $tempMovie);
-		$predictedRating[] = array_push($rated => $tempMovie);
+		$predictedRating[] = array($rated => $tempMovie);
 	}
 	arsort($predictedRating); //sorts this array into descending array of values
 	echo "We recommend you watch: " . reset($predictedRating) . " next!"; //this gives the top predictedRated movie of the user.
@@ -65,7 +65,7 @@ function getRatingArray(string $a, array $b)
 		$curr = $b[$w];
 		$sql = mysqli_query($dbc, "SELECT rating FROM movie_database WHERE userID = '$a' && movieTitle = '$curr'");
 		while ($row = mysqli_fetch_array($sql, MYSQLI_ASSOC)) {
-			array_push($rating, $row['rating']);
+			array($rating, $row['rating']);
 		}
 	} //add to rating array
 	return $rating;
